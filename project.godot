@@ -16,7 +16,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NetworkHandler="*uid://dr5f0g84q7c2o"
+ClientNetworkHandler="*uid://bqcbro6vui1yd"
+ServerNetworkHandler="*uid://dr1kkivf8c0lq"
 ClientNetworkGlobals="*uid://du56sl8dwkwr7"
 ServerNetworkGlobals="*uid://bpq8xddwmuwde"
 

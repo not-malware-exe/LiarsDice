@@ -7,11 +7,9 @@ public partial class TestPlayerSpawner : Node
 
     public override void _Ready()
     {
-		NetworkHandler networkHandler = NetworkHandler.instance;
-		networkHandler.Connect(nameof(networkHandler.OnPeerConnected),new Callable(this,nameof(SpawnPlayer)));
 		ClientNetworkGlobals clientNetwork = ClientNetworkGlobals.instance;
         clientNetwork.Connect(nameof(clientNetwork.HandleLocalIdAssignment),new Callable(this,nameof(SpawnPlayer)));
-        // clientNetwork.Connect(nameof(clientNetwork.HandleRemoteIdAssignment),new Callable(this,nameof(SpawnPlayer)));
+        clientNetwork.Connect(nameof(clientNetwork.HandleRemoteIdAssignment),new Callable(this,nameof(SpawnPlayer)));
     }
 
 
@@ -19,7 +17,7 @@ public partial class TestPlayerSpawner : Node
 	{
 		TestPlayer player = _testPlayer.Instantiate<TestPlayer>();
 
-		player.SetOwnerID(id);
+		player.SetPlayerID(id);
 		player.Name += id;
 
 		CallDeferred(Node.MethodName.AddChild,player);

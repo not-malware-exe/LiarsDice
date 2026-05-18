@@ -57,10 +57,14 @@ TemporaryDependencyNodeTargetIdentifier=net8.0
  LiarsDice.AssemblyInfo.cs
 multiplayer_scripts/
  ClientNetworkGlobals.cs
- NetworkHandler.cs
+ network_handlers/
+  ClientNetworkHandler.cs
+  old/NetworkHandler.cs
+  ServerNetworkHandler.cs
  packet_info_scripts/
   IdAssignmentPacketInfo.cs
   PacketInfo.cs
+  PacketInfoFormat.cs
  ServerNetworkGlobals.cs
 test_scenes/
  NetworkTestUi.cs

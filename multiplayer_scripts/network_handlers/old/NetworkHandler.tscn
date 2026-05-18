@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dr5f0g84q7c2o"]
+
+[ext_resource type="Script" uid="uid://bg6jyig00jhv3" path="res://multiplayer_scripts/network_handlers/old/NetworkHandler.cs" id="1_i4lpo"]
+
+[node name="NetworkHandler" type="Node" unique_id=1666666241]
+script = ExtResource("1_i4lpo")

@@ -31,6 +31,7 @@ Date, Times, Sum, Sum Total, Description
 5/17/2026 | 12:00PM - 1:00PM | 1:00 | 2:12  |
 5/17/2026 | 1:19PM - 2:16PM  | 0:57 | 3:09  |
 5/17/2026 | 2:27PM - 4:46PM  | 2:19 | 5:28  | Completed tutorial and got multiplayer working on my laptops ip address
+5/17/2026 | 6:09PM - 7:24PM  | 1:15 | 6:43  | Changed code from tutorial to allow both a server and client on one instance, removed redundancies, and commented code, (ready to learn)
 
 
 ## TP Time Log

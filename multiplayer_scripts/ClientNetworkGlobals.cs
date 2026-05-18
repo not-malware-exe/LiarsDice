@@ -28,8 +28,10 @@ public partial class ClientNetworkGlobals : Node
 	public override void _Ready()
 	{
 		instance = this;
-		NetworkHandler networkHandler = NetworkHandler.instance;
-		networkHandler.Connect(nameof(networkHandler.OnClientPacket),new Callable(this,nameof(OnClientPacket)));
+		ClientNetworkHandler clientNetworkHandler = ClientNetworkHandler.instance;
+		clientNetworkHandler.Connect(nameof(clientNetworkHandler.OnClientPacket),new Callable(this,nameof(OnClientPacket)));
+
+		GD.PushWarning("Rename class to better explain that this handles the packets sent to the client, something like ClientPacketHandler"); // is also specific to game
 	}
 
 	void OnClientPacket(byte[] data)
@@ -71,10 +73,5 @@ public partial class ClientNetworkGlobals : Node
 			_remoteIds.Add(idPacketInfo.GetLocalId());
 			EmitSignal(nameof(HandleRemoteIdAssignment),idPacketInfo.GetLocalId());
 		}
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }

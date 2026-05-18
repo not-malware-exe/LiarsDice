@@ -3,27 +3,21 @@ using Godot.Collections;
 using System;
 using System.Linq;
 
-public class PlayerPosTestPacketInfo : PacketInfo
+public class PacketInfoFormat : PacketInfo
 {
 	// Packet variables ////////////////////////////////////////////
-	private byte _id;
-	private Vector2 _pos;
 
-	public byte GetId(){return _id;}
-	public Vector2 GetPos(){return _pos;}
 	// Packet variables ////////////////////////////////////////////
 
 	// Packet constructors /////////////////////////////////////////
-	public PlayerPosTestPacketInfo(byte id, Vector2 pos)
+	public PacketInfoFormat()
 	{
-		_id = id;
-		_pos = pos;
-		_packetType = PacketType.PlayerPosTest;
-		_flags = (int)ENetPacketPeer.FlagUnsequenced;
 
+		_packetType = PacketType.IdAssignment;
+		_flags = (int)ENetPacketPeer.FlagReliable;
 	}
-
-	public PlayerPosTestPacketInfo(byte[] data)
+	
+	public PacketInfoFormat(byte[] data)
 	{
 		Decode(data);
 	}
@@ -33,10 +27,7 @@ public class PlayerPosTestPacketInfo : PacketInfo
 	public override StreamPeerBuffer EncodeBuffer()
 	{
 		StreamPeerBuffer buffer = base.EncodeBuffer();
-		buffer.PutU8(_id);
 		
-		buffer.PutFloat(_pos.X);
-		buffer.PutFloat(_pos.Y);
 
 		return buffer;
 	}
@@ -44,9 +35,8 @@ public class PlayerPosTestPacketInfo : PacketInfo
 	public override void DecodeBuffer(StreamPeerBuffer buffer)
 	{
 		base.DecodeBuffer(buffer);
-		_id = buffer.GetU8();
-
-		_pos = new Vector2(buffer.GetFloat(),buffer.GetFloat());
+		
+		
 	}
 	// Encoding/Decoding ///////////////////////////////////////////
 }

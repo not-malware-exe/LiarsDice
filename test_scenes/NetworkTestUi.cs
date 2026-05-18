@@ -17,11 +17,14 @@ public partial class NetworkTestUi : Control
 
 	void ServerButtonPressed()
 	{
-		NetworkHandler.instance.StartServer();
+		ServerNetworkHandler.instance.StartServer();
+		ClientNetworkHandler.instance.startClient();
+		QueueFree();
 	}
 	
 	void ClientButtonPressed()
 	{
-		NetworkHandler.instance.startClient();
+		ClientNetworkHandler.instance.startClient();
+		QueueFree();
 	}
 }

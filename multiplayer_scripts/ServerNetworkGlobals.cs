@@ -7,23 +7,23 @@ public partial class ServerNetworkGlobals : Node
 	public static ServerNetworkGlobals instance = null;
 
 	
-	[Signal]
-	public delegate void HandlePlayerPosTestEventHandler(long id, Vector2 pos);
 
 	private Array<long> _peerIds = [];
-	public void SetPeerId(Array<long> peerIds){_peerIds = peerIds;}
-	public Array<long> GetPeerId(){return _peerIds;}
+	public void SetPeerIds(Array<long> peerIds){_peerIds = peerIds;}
+	public Array<long> GetPeerIds(){return _peerIds;}
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		instance = this;
-		NetworkHandler networkHandler = NetworkHandler.instance;
+		ServerNetworkHandler serverNetworkHandler = ServerNetworkHandler.instance;
 
-		networkHandler.Connect(nameof(networkHandler.OnPeerConnected),new Callable(this, nameof(OnPeerConnected)));
-		networkHandler.Connect(nameof(networkHandler.OnPeerDisconnected),new Callable(this, nameof(OnPeerDisconnected)));
-		networkHandler.Connect(nameof(networkHandler.OnServerPacket),new Callable(this, nameof(OnServerPacket)));
+		serverNetworkHandler.Connect(nameof(serverNetworkHandler.OnPeerConnected),new Callable(this, nameof(OnPeerConnected)));
+		serverNetworkHandler.Connect(nameof(serverNetworkHandler.OnPeerDisconnected),new Callable(this, nameof(OnPeerDisconnected)));
+		serverNetworkHandler.Connect(nameof(serverNetworkHandler.OnServerPacket),new Callable(this, nameof(OnServerPacket)));
+
+		GD.PushWarning("Rename class to better explain that this handles the packets sent to the server, something like ServerPacketHandler"); // is also specific to game
 	}
 
 	public void OnPeerConnected(long peerId)
@@ -35,8 +35,8 @@ public partial class ServerNetworkGlobals : Node
 			peerIds.Add((byte)_peerIds[i]);
 
 		
-		NetworkHandler networkHandler = NetworkHandler.instance;
-		new IdAssignmentPacketInfo((byte)peerId,peerIds).BroadCast(networkHandler.GetENetConnection());
+		ServerNetworkHandler serverNetworkHandler = ServerNetworkHandler.instance;
+		new IdAssignmentPacketInfo((byte)peerId,peerIds).BroadCast(serverNetworkHandler.GetENetConnection());
 	}
 
 	public void OnPeerDisconnected(long peerId)
@@ -54,8 +54,7 @@ public partial class ServerNetworkGlobals : Node
 		{
 			case PacketInfo.PacketType.PlayerPosTest:
 				PlayerPosTestPacketInfo playerPosTestPacketInfo = new PlayerPosTestPacketInfo(data);
-				if (peerId != playerPosTestPacketInfo.GetId())GD.Print(peerId," ",playerPosTestPacketInfo.GetId());
-				EmitSignal(nameof(HandlePlayerPosTest),playerPosTestPacketInfo.GetId(),playerPosTestPacketInfo.GetPos());
+				playerPosTestPacketInfo.BroadCast(ServerNetworkHandler.instance.GetENetConnection()); // Sends data to all clients
 				break;
 			default:
 				GD.PushError("This packet type for value ", packetType," is not accounted for in server globals.");

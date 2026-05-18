@@ -5,12 +5,15 @@ using System.Linq;
 
 public class IdAssignmentPacketInfo : PacketInfo
 {
+	// Packet variables ////////////////////////////////////////////
 	private byte _localId;
 	private Array<byte> _remoteIds = [];
 	
 	public byte GetLocalId(){return _localId;}
 	public Array<byte> GetRemoteIds(){return _remoteIds;}
+	// Packet variables ////////////////////////////////////////////
 
+	// Packet constructors /////////////////////////////////////////
 	public IdAssignmentPacketInfo(byte localId, Array<byte> remoteIds)
 	{
 		_localId = localId;
@@ -19,12 +22,14 @@ public class IdAssignmentPacketInfo : PacketInfo
 		_flags = (int)ENetPacketPeer.FlagReliable;
 
 	}
-
+	
 	public IdAssignmentPacketInfo(byte[] data)
 	{
 		Decode(data);
 	}
+	// Packet constructors /////////////////////////////////////////
 
+	// Encoding/Decoding ///////////////////////////////////////////
 	public override StreamPeerBuffer EncodeBuffer()
 	{
 		StreamPeerBuffer buffer = base.EncodeBuffer();
@@ -46,4 +51,5 @@ public class IdAssignmentPacketInfo : PacketInfo
 		for (byte i = 0; i < remoteIdCount; i++)
 			_remoteIds.Add(buffer.GetU8());
 	}
+	// Encoding/Decoding ///////////////////////////////////////////
 }

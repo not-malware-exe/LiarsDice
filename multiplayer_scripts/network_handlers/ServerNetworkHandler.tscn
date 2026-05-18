@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bslk5kk0xqk84"]
+
+[ext_resource type="Script" uid="uid://dr1kkivf8c0lq" path="res://multiplayer_scripts/network_handlers/ServerNetworkHandler.cs" id="1_qjjye"]
+
+[node name="ServerNetworkHandler" type="Node" unique_id=1022583805]
+script = ExtResource("1_qjjye")
