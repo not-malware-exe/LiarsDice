@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://rnonj8o5d76i"]
+
+[ext_resource type="Script" uid="uid://8drlf3n5lf74" path="res://test_scenes/NetworkTestUi.cs" id="1_dogyh"]
+[ext_resource type="Script" uid="uid://c6thquxymc5lc" path="res://test_scenes/TestPlayerSpawner.cs" id="2_0pj0i"]
+
+[node name="TestNetwork" type="Node" unique_id=1466174161]
+
+[node name="NetworkTestUI" type="Control" parent="." unique_id=1252700104 node_paths=PackedStringArray("serverButton", "clientButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dogyh")
+serverButton = NodePath("VBoxContainer/ServerButton")
+clientButton = NodePath("VBoxContainer/ClientButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NetworkTestUI" unique_id=229560621]
+layout_mode = 0
+offset_right = 89.0
+offset_bottom = 103.0
+
+[node name="ServerButton" type="Button" parent="NetworkTestUI/VBoxContainer" unique_id=1606840781]
+layout_mode = 2
+text = "Server"
+
+[node name="ClientButton" type="Button" parent="NetworkTestUI/VBoxContainer" unique_id=375417786]
+layout_mode = 2
+text = "Client"
+
+[node name="PlayerSpawner" type="Node2D" parent="." unique_id=228643028]
+script = ExtResource("2_0pj0i")

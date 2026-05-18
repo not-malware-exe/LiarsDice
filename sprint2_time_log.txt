@@ -27,10 +27,14 @@ The expected minimum amount of time each Sprint for each category is as follows:
 Date, Times, Sum, Sum Total, Description
 
 ## IM Time Log
-5//2026|||| 
+5/16/2026 | 8:38PM - 9:50PM  | 1:12 | 1:12  | Started following tutorial
+5/17/2026 | 12:00PM - 1:00PM | 1:00 | 2:12  |
+5/17/2026 | 1:19PM - 2:16PM  | 0:57 | 3:09  |
+5/17/2026 | 2:27PM - 4:46PM  | 2:19 | 5:28  | Completed tutorial and got multiplayer working on my laptops ip address
+
 
 ## TP Time Log
-5/13/2026| 2:00PM - 3:00PM ||| Changed project idea to man hunt
+5/13/2026| 2:00PM - 3:00PM | 1:00 | 1:00 | Changed project idea to man hunt
 
 
 

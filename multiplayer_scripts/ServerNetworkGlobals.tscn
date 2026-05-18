@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bpq8xddwmuwde"]
+
+[ext_resource type="Script" uid="uid://bh3b84cq8slit" path="res://multiplayer_scripts/ServerNetworkGlobals.cs" id="1_hms3i"]
+
+[node name="ServerNetworkGlobals" type="Node" unique_id=1350952468]
+script = ExtResource("1_hms3i")
