@@ -3,46 +3,52 @@ using Godot.Collections;
 using System;
 using System.Linq;
 
-public class PacketInfo
+public class Packet : SubPacket
 {
 	// Packet variables ////////////////////////////////////////////
 	public enum PacketType : byte
 	{
-    	IdAssignment = 0,
-		PlayerPosTest = 1
+    	AssignId = 0,
+		UpdateClientIds = 1,
+		ReadyClient = 2,
+		StartMatch = 3,
+		StartRound = 4,
+		UpdatePlayerInstance = 5,
+		StartTurn = 6,
+		SendAction = 7,
+
+		ResolveChallenge = 10,
+
+
+
+		PlayerPosTest = 255
 	}
 
 	protected PacketType _packetType;
 	protected int _flags;
 	// Packet variables ////////////////////////////////////////////
+
+	// Packet constructors /////////////////////////////////////////
+	public Packet()
+	{
+
+		_packetType = PacketType.AssignId;
+		_flags = (int)ENetPacketPeer.FlagReliable;
+	}
+	
+	public Packet(byte[] data) : base(data){}
+	public Packet(StreamPeerBuffer buffer) : base(buffer){}
+	// Packet constructors /////////////////////////////////////////
 	
 	// Encoding/Decoding ///////////////////////////////////////////
-	// encodes data into byte array
-	public byte[] Encode()
-	{
-		return EncodeBuffer().DataArray;
-	}
-
 	// encodes data with StreamPeerBuffer
-	public virtual StreamPeerBuffer EncodeBuffer()
+	public override void EncodeToBuffer(StreamPeerBuffer buffer)
 	{
-		StreamPeerBuffer buffer = new StreamPeerBuffer();
 		buffer.PutU8((byte)_packetType);
-
-		return buffer;
-	}
-
-	// decodes data into byte array
-	public void Decode(byte[] packetData)
-	{
-		StreamPeerBuffer buffer = new StreamPeerBuffer();
-		buffer.DataArray = packetData;
-
-		DecodeBuffer(buffer);
 	}
 
 	// decodes data with StreamPeerBuffer
-	public virtual void DecodeBuffer(StreamPeerBuffer buffer)
+	public override void DecodeFromBuffer(StreamPeerBuffer buffer)
 	{
 		_packetType = (PacketType)buffer.GetU8();
 	}

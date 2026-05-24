@@ -3,39 +3,33 @@ using Godot.Collections;
 using System;
 using System.Linq;
 
-public class PacketInfoFormat : PacketInfo
+public class SubPacketFormat : SubPacket
 {
 	// Packet variables ////////////////////////////////////////////
-
+	
 	// Packet variables ////////////////////////////////////////////
 
 	// Packet constructors /////////////////////////////////////////
-	public PacketInfoFormat()
-	{
+	public SubPacketFormat() : base(){}
 
-		_packetType = PacketType.IdAssignment;
-		_flags = (int)ENetPacketPeer.FlagReliable;
-	}
-	
-	public PacketInfoFormat(byte[] data)
-	{
-		Decode(data);
-	}
+	public SubPacketFormat(byte[] data) : base(data){}
+	public SubPacketFormat(StreamPeerBuffer buffer) : base(buffer){}
 	// Packet constructors /////////////////////////////////////////
-
+	
 	// Encoding/Decoding ///////////////////////////////////////////
-	public override StreamPeerBuffer EncodeBuffer()
+	// encodes data with StreamPeerBuffer
+	public override void EncodeToBuffer(StreamPeerBuffer buffer)
 	{
-		StreamPeerBuffer buffer = base.EncodeBuffer();
-		
+		base.EncodeToBuffer(buffer);
 
-		return buffer;
+
 	}
 
-	public override void DecodeBuffer(StreamPeerBuffer buffer)
+	// decodes data with StreamPeerBuffer
+	public override void DecodeFromBuffer(StreamPeerBuffer buffer)
 	{
-		base.DecodeBuffer(buffer);
-		
+		base.DecodeFromBuffer(buffer);
+
 		
 	}
 	// Encoding/Decoding ///////////////////////////////////////////

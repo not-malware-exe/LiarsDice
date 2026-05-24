@@ -21,8 +21,10 @@ public partial class ServerNetworkHandler : Node
 
 	// server variables ///////////////////////////////////////////////////
 		static Array<long> initAvailablePeerIds(){Array<long>arr=[];for(long i=255;i>-1;i--)arr.Add(i);return arr;}
-	Array<long> availablePeerIds = initAvailablePeerIds();
-	Dictionary<long, ENetPacketPeer> clientPeers = [];
+	private Array<long> availablePeerIds = initAvailablePeerIds();
+	private Dictionary<long, ENetPacketPeer> _clientPeers = [];
+
+	public Dictionary<long, ENetPacketPeer> GetClientPeers(){return _clientPeers;}
 	// server variables ///////////////////////////////////////////////////
 
     // network variables //////////////////////////////////////////////////
@@ -103,7 +105,7 @@ public partial class ServerNetworkHandler : Node
 		availablePeerIds.RemoveAt(availablePeerIds.Count - 1);
 
 		peer.SetMeta("id", peerId);
-		clientPeers[peerId] = peer; // if key does not exist, it will write a new key value pair
+		_clientPeers[peerId] = peer; // if key does not exist, it will write a new key value pair
 
 		GD.Print("Peer connected with assigned id: ", peerId);
 		EmitSignal(nameof(OnPeerConnected), peerId);
@@ -112,7 +114,7 @@ public partial class ServerNetworkHandler : Node
 	{
 		long peerId = peer.GetMeta("id").As<long>();
 		availablePeerIds.Add(peerId);
-		clientPeers.Remove(peerId);
+		_clientPeers.Remove(peerId);
 
 		GD.Print("Successfully disconnected ", peerId, " from server.");
 		EmitSignal(nameof(OnPeerDisconnected), peerId);

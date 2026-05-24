@@ -84,7 +84,7 @@ public partial class ClientNetworkHandler : Node
 
 		if (error != 0)
 		{
-			GD.PushWarning("Server starting failed: ", error.ToString());
+			GD.PushWarning("Client starting failed: ", error.ToString());
 			connection = null;
 			return;
 		}

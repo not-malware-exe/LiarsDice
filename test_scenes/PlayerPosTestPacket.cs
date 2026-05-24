@@ -3,7 +3,7 @@ using Godot.Collections;
 using System;
 using System.Linq;
 
-public class PlayerPosTestPacketInfo : PacketInfo
+public class PlayerPosTestPacket : Packet
 {
 	// Packet variables ////////////////////////////////////////////
 	private byte _id;
@@ -14,7 +14,7 @@ public class PlayerPosTestPacketInfo : PacketInfo
 	// Packet variables ////////////////////////////////////////////
 
 	// Packet constructors /////////////////////////////////////////
-	public PlayerPosTestPacketInfo(byte id, Vector2 pos)
+	public PlayerPosTestPacket(byte id, Vector2 pos)
 	{
 		_id = id;
 		_pos = pos;
@@ -23,27 +23,25 @@ public class PlayerPosTestPacketInfo : PacketInfo
 
 	}
 
-	public PlayerPosTestPacketInfo(byte[] data)
+	public PlayerPosTestPacket(byte[] data)
 	{
 		Decode(data);
 	}
 	// Packet constructors /////////////////////////////////////////
 
 	// Encoding/Decoding ///////////////////////////////////////////
-	public override StreamPeerBuffer EncodeBuffer()
+	public override void EncodeToBuffer(StreamPeerBuffer buffer)
 	{
-		StreamPeerBuffer buffer = base.EncodeBuffer();
+		base.EncodeToBuffer(buffer);
 		buffer.PutU8(_id);
 		
 		buffer.PutFloat(_pos.X);
 		buffer.PutFloat(_pos.Y);
-
-		return buffer;
 	}
 
-	public override void DecodeBuffer(StreamPeerBuffer buffer)
+	public override void DecodeFromBuffer(StreamPeerBuffer buffer)
 	{
-		base.DecodeBuffer(buffer);
+		base.DecodeFromBuffer(buffer);
 		_id = buffer.GetU8();
 
 		_pos = new Vector2(buffer.GetFloat(),buffer.GetFloat());

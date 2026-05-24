@@ -10,7 +10,11 @@ public partial class ClientNetworkGlobals : Node
 	[Signal] 
 	public delegate void HandleLocalIdAssignmentEventHandler(long localId);
 	[Signal] 
-	public delegate void HandleRemoteIdAssignmentEventHandler(long remoteId);
+	public delegate void HandleRemoteIdUpdateEventHandler(Array<long> remoteIds);
+	[Signal]
+	public delegate void HandleAddRemoteIdEventHandler(long remoteId);
+	[Signal]
+	public delegate void HandleRemoveRemoteIdEventHandler(long remoteId);
 	
 	[Signal]
 	public delegate void HandlePlayerPosTestEventHandler(long id, Vector2 pos);
@@ -38,14 +42,20 @@ public partial class ClientNetworkGlobals : Node
 	{
 		byte packetType = data[0];
 
-		switch ((PacketInfo.PacketType)packetType)
+		switch ((Packet.PacketType)packetType)
 		{
-			case PacketInfo.PacketType.IdAssignment:
-				ManageIds(new IdAssignmentPacketInfo(data));
+			case Packet.PacketType.AssignId: /////////////////////////////////////////////////////
+				AssignIdPacket assignIdPacket = new AssignIdPacket(data);
+				_localId = assignIdPacket.GetLocalId();
+				EmitSignal(nameof(HandleLocalIdAssignment),_localId);
 				break;
-			case PacketInfo.PacketType.PlayerPosTest:
-				PlayerPosTestPacketInfo playerPosTestPacketInfo = new PlayerPosTestPacketInfo(data);
-				EmitSignal(nameof(HandlePlayerPosTest),playerPosTestPacketInfo.GetId(),playerPosTestPacketInfo.GetPos());
+			case Packet.PacketType.UpdateClientIds: /////////////////////////////////////////////////////
+				UpdateClientIdsPacket updateClientIdsPacket = new UpdateClientIdsPacket(data);
+				UpdateRemoteIds(updateClientIdsPacket);
+				break;
+			case Packet.PacketType.PlayerPosTest: /////////////////////////////////////////////////////
+				PlayerPosTestPacket playerPosTestPacket = new PlayerPosTestPacket(data);
+				EmitSignal(nameof(HandlePlayerPosTest),playerPosTestPacket.GetId(),playerPosTestPacket.GetPos());
 				break;
 			default:
 				GD.PushError("This packet type for value ", packetType," is not accounted for in client globals.");
@@ -53,25 +63,25 @@ public partial class ClientNetworkGlobals : Node
 		}
 	}
 
-	void ManageIds(IdAssignmentPacketInfo idPacketInfo)
+	private void UpdateRemoteIds(UpdateClientIdsPacket packet)
 	{
-		if (_localId == -1)
-		{
-			_localId = idPacketInfo.GetLocalId();
-			EmitSignal(nameof(HandleLocalIdAssignment),_localId);
+		Array<long> remoteIds = [];
 
-			_remoteIds = [];
-			foreach (byte remoteId in idPacketInfo.GetRemoteIds())
+		foreach (byte clientId in packet.GetClientIds())
+			if ((long)clientId != _localId)
 			{
-				_remoteIds.Add(remoteId);
-				if (remoteId != _localId)
-					EmitSignal(nameof(HandleRemoteIdAssignment),remoteId);
+				if (!_remoteIds.Contains(clientId))
+					EmitSignal(nameof(HandleAddRemoteId),clientId);
+				remoteIds.Add(clientId);
 			}
-		}
-		else
-		{
-			_remoteIds.Add(idPacketInfo.GetLocalId());
-			EmitSignal(nameof(HandleRemoteIdAssignment),idPacketInfo.GetLocalId());
-		}
+
+		foreach (long clientId in _remoteIds)
+			if (!remoteIds.Contains(clientId))
+				EmitSignal(nameof(HandleRemoveRemoteId),clientId);
+
+		_remoteIds = remoteIds;
+		EmitSignal(nameof(HandleRemoteIdUpdate),_remoteIds);
 	}
 }
+
+

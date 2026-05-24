@@ -17,12 +17,14 @@ public partial class TestPlayer : CharacterBody2D
     {
 		ClientNetworkGlobals clientNetwork = ClientNetworkGlobals.instance;
         clientNetwork.Connect(nameof(clientNetwork.HandlePlayerPosTest),new Callable(this,nameof(ClientHandlePlayerPosTest)));
+		clientNetwork.Connect(nameof(clientNetwork.HandleRemoveRemoteId),new Callable(this,nameof(ClientDisconnected)));
     }
 	
     public override void _ExitTree()
     {
 		ClientNetworkGlobals clientNetwork = ClientNetworkGlobals.instance;
         clientNetwork.Disconnect(nameof(clientNetwork.HandlePlayerPosTest),new Callable(this,nameof(ClientHandlePlayerPosTest)));
+		clientNetwork.Disconnect(nameof(clientNetwork.HandleRemoveRemoteId),new Callable(this,nameof(ClientDisconnected)));
     }
 
 
@@ -39,8 +41,16 @@ public partial class TestPlayer : CharacterBody2D
 			Velocity = Input.GetVector("A","D","W","S") * SPEED;
 			MoveAndSlide();
 
-			PlayerPosTestPacketInfo playerPosTestPacketInfo = new PlayerPosTestPacketInfo((byte)_playerId,GlobalPosition);
-			playerPosTestPacketInfo.Send(ClientNetworkHandler.instance.GetServerpeer());
+			PlayerPosTestPacket playerPosTestPacket = new PlayerPosTestPacket((byte)_playerId,GlobalPosition);
+			playerPosTestPacket.Send(ClientNetworkHandler.instance.GetServerpeer());
+		}
+	}
+
+	public void ClientDisconnected(long id)
+	{
+		if (!IsAuthority() && _playerId == id)
+		{
+			QueueFree();
 		}
 	}
 

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://c7a5p60cyjrw1"]
+
+[node name="TestGameUI" type="Control" unique_id=1763008966]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BidButton" type="Button" parent="." unique_id=1516794245]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -132.0
+offset_top = -98.0
+offset_right = 124.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Submit Bid
+"
+
+[node name="BidButton2" type="Button" parent="." unique_id=1948332944]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 131.0
+offset_top = -99.0
+offset_right = 387.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Declare Liar
+"
+
+[node name="DiceLable" type="Label" parent="." unique_id=2116866673]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -206.0
+offset_bottom = 54.0
+grow_horizontal = 0
+text = "Last Bid: 0 6's
+Dice: [1,1,1,1,1]"
+
+[node name="ValueInput" type="TextEdit" parent="." unique_id=1646856351]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -97.0
+offset_right = -140.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "value"
+
+[node name="QuantityInput" type="TextEdit" parent="." unique_id=1381912397]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -258.0
+offset_top = -97.0
+offset_right = -202.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "count"

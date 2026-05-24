@@ -27,15 +27,24 @@ The expected minimum amount of time each Sprint for each category is as follows:
 Date, Times, Sum, Sum Total, Description
 
 ## IM Time Log
-5/16/2026 | 8:38PM - 9:50PM  | 1:12 | 1:12  | Started following tutorial
-5/17/2026 | 12:00PM - 1:00PM | 1:00 | 2:12  |
-5/17/2026 | 1:19PM - 2:16PM  | 0:57 | 3:09  |
-5/17/2026 | 2:27PM - 4:46PM  | 2:19 | 5:28  | Completed tutorial and got multiplayer working on my laptops ip address
-5/17/2026 | 6:09PM - 7:24PM  | 1:15 | 6:43  | Changed code from tutorial to allow both a server and client on one instance, removed redundancies, and commented code, (ready to learn)
+5/16/2026 | 8:38PM - 9:50PM | 1:12 | 1:12  | Started following tutorial
+5/17/2026 |12:00PM - 1:00PM | 1:00 | 2:12  |
+5/17/2026 | 1:19PM - 2:16PM | 0:57 | 3:09  |
+5/17/2026 | 2:27PM - 4:46PM | 2:19 | 5:28  | Completed tutorial and got multiplayer working on my laptops ip address
+5/17/2026 | 6:09PM - 7:24PM | 1:15 | 6:43  | Changed code from tutorial to allow both a server and client on one instance, removed redundancies, and commented code
+5/20/2026 | 8:18AM - 9:34AM | 1:16 | 7:59  | IDK
+5/22/2026 | 8:16AM - 8:46AM | 0:30 | 8:29  | Seperated id assignment packet into assign id and update client ids
+5/22/2026 | 8:56AM - 9:29AM | 0:33 | 9:02  | Got remote id disconnection working
+5/22/2026 |10:25AM - 11:45  | 1:20 | 10:22 | Designed many packet types
 
 
 ## TP Time Log
-5/13/2026| 2:00PM - 3:00PM | 1:00 | 1:00 | Changed project idea to man hunt
+5/13/2026 | 2:00PM - 3:00PM | 1:00 | 1:00 | Changed project idea to man hunt (Well that sucks)
+5/18/2026 | 2:00PM - 4:00PM | 2:00 | 3:00 | Joined different team learning about project, created a Vector2 class and a Tile class
+5/20/2026 | 3:36PM - 4:50PM | 1:14 | 4:14 | Worked on adding draggable items with js
+
+## MTG Time Log
+4 stamps = 4 hours
 
 
 
@@ -43,7 +52,7 @@ Date, Times, Sum, Sum Total, Description
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         |                          |
-|TP - Team Project              |                          |
-|MTG - Class Meetings           |                          |
+|IM - Individual Module         |      10:22 + more        |
+|TP - Team Project              |      4:14                |
+|MTG - Class Meetings           |      4:00                |
 |**TOTAL**                      |                          |

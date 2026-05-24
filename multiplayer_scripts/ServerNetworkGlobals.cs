@@ -36,25 +36,31 @@ public partial class ServerNetworkGlobals : Node
 
 		
 		ServerNetworkHandler serverNetworkHandler = ServerNetworkHandler.instance;
-		new IdAssignmentPacketInfo((byte)peerId,peerIds).BroadCast(serverNetworkHandler.GetENetConnection());
+		new AssignIdPacket((byte)peerId).Send(serverNetworkHandler.GetClientPeers()[peerId]); // Sends id to specific client
+		new UpdateClientIdsPacket(peerIds).BroadCast(serverNetworkHandler.GetENetConnection()); // Sends all ids to all clients
 	}
 
 	public void OnPeerDisconnected(long peerId)
 	{
 		_peerIds.Remove(peerId);
+	
+		Array<byte> peerIds = [];
+		for (byte i = 0; i < _peerIds.Count; i++)
+			peerIds.Add((byte)_peerIds[i]);
 
-		GD.PushError("Packet for unassigning peers does not exist yet, so yeah, this error is a reminder to do that.");
+		ServerNetworkHandler serverNetworkHandler = ServerNetworkHandler.instance;
+		new UpdateClientIdsPacket(peerIds).BroadCast(serverNetworkHandler.GetENetConnection()); // Sends all ids to all clients
 	}
 
 	public void OnServerPacket(long peerId, byte[] data)
 	{
 		byte packetType = data[0];
 
-		switch ((PacketInfo.PacketType)packetType)
+		switch ((Packet.PacketType)packetType)
 		{
-			case PacketInfo.PacketType.PlayerPosTest:
-				PlayerPosTestPacketInfo playerPosTestPacketInfo = new PlayerPosTestPacketInfo(data);
-				playerPosTestPacketInfo.BroadCast(ServerNetworkHandler.instance.GetENetConnection()); // Sends data to all clients
+			case Packet.PacketType.PlayerPosTest:
+				PlayerPosTestPacket playerPosTestPacket = new PlayerPosTestPacket(data);
+				playerPosTestPacket.BroadCast(ServerNetworkHandler.instance.GetENetConnection()); // Sends data to all clients
 				break;
 			default:
 				GD.PushError("This packet type for value ", packetType," is not accounted for in server globals.");
