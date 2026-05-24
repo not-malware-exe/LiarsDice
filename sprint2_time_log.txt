@@ -1,8 +1,8 @@
 # CSE 310 - Sprint Time Log
 
-Name:
+Name: Brigham Peterson
 
-Sprint #:
+Sprint #: 2
 
 ## Instructions
 
@@ -36,7 +36,7 @@ Date, Times, Sum, Sum Total, Description
 5/22/2026 | 8:16AM - 8:46AM | 0:30 | 8:29  | Seperated id assignment packet into assign id and update client ids
 5/22/2026 | 8:56AM - 9:29AM | 0:33 | 9:02  | Got remote id disconnection working
 5/22/2026 |10:25AM - 11:45  | 1:20 | 10:22 | Designed many packet types
-
+I stopped recording time at this point
 
 ## TP Time Log
 5/13/2026 | 2:00PM - 3:00PM | 1:00 | 1:00 | Changed project idea to man hunt (Well that sucks)
